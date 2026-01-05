@@ -8,6 +8,7 @@ const navigation = [
   { name: "Home", href: "/" },
   { name: "Pricing", href: "/pricing" },
   { name: "ROI Calculator", href: "/roi-calculator" },
+  { name: "Documents", href: "/documents" },
   { name: "Contact", href: "/contact" },
 ];
 

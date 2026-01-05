@@ -3,18 +3,21 @@ import Link from "next/link";
 const footerLinks = {
   product: [
     { name: "Pricing", href: "/pricing" },
-    { name: "ROI Calculator", href: "/roi-calculator" },
+    { name: "Compare", href: "/compare" },
+    { name: "Documents", href: "/documents" },
     { name: "Contact", href: "/contact" },
   ],
   company: [
     { name: "About Us", href: "https://bodyf1rst.com/about" },
     { name: "Careers", href: "https://bodyf1rst.com/careers" },
     { name: "Blog", href: "https://bodyf1rst.com/blog" },
+    { name: "Security", href: "/security" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
     { name: "HIPAA Compliance", href: "/hipaa" },
+    { name: "Legal Center", href: "/legal" },
   ],
 };
 
