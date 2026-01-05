@@ -1,5 +1,14 @@
 {
   "projects": {
-    "default": "bodyf1rst-corporate-wellness"
+    "default": "bodyf1rst-main"
+  },
+  "targets": {
+    "bodyf1rst-main": {
+      "hosting": {
+        "corporate-wellness": [
+          "corporate-wellness"
+        ]
+      }
+    }
   }
 }

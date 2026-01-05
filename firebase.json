@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "bodyf1rst-corporate-wellness",
+    "target": "corporate-wellness",
     "public": "out",
     "ignore": [
       "firebase.json",
