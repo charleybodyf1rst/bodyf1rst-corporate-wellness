@@ -5,8 +5,8 @@
   "targets": {
     "bodyf1rst-main": {
       "hosting": {
-        "corporate-wellness": [
-          "corporate-wellness"
+        "b1-corporate-wellness": [
+          "b1-corporate-wellness"
         ]
       }
     }

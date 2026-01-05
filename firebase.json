@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "target": "corporate-wellness",
+    "target": "b1-corporate-wellness",
     "public": "out",
     "ignore": [
       "firebase.json",

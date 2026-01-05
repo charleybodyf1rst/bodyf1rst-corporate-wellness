@@ -46,7 +46,7 @@ jobs:
       - name: Create Hosting Site (if needed)
         run: |
           # Create hosting site on bodyf1rst-main project if it doesn't exist
-          firebase hosting:sites:create corporate-wellness --project bodyf1rst-main || echo "Site may already exist"
+          firebase hosting:sites:create b1-corporate-wellness --project bodyf1rst-main || echo "Site may already exist"
 
       - name: Deploy to Firebase Hosting
-        run: firebase deploy --only hosting:corporate-wellness --project bodyf1rst-main
+        run: firebase deploy --only hosting:b1-corporate-wellness --project bodyf1rst-main
