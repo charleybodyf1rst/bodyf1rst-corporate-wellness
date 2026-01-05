@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import {
   Heart,
   TrendingUp,
@@ -10,12 +9,14 @@ import {
   Smartphone,
   Award,
   DollarSign,
-  CheckCircle,
   ArrowRight,
   Building2,
   Factory,
   HardHat,
+  Sparkles,
 } from "lucide-react";
+import { LayeredBackground, SectionBackground } from "@/components/layered-background";
+import { CompetitorComparison } from "@/components/competitor-comparison";
 
 const stats = [
   { label: "Avg. Cost Savings", value: "40-70%", description: "vs industry rates" },
@@ -78,71 +79,61 @@ const industries = [
   },
 ];
 
-const competitors = [
-  { name: "Virgin Pulse", basic: "$72", standard: "$240", premium: "$600" },
-  { name: "Wellable", basic: "$48", standard: "$180", premium: "$480" },
-  { name: "Limeade", basic: "$60", standard: "$200", premium: "$500" },
-  { name: "Industry Avg", basic: "$60", standard: "$225", premium: "$600" },
-];
-
 export default function HomePage() {
   return (
     <div className="overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative isolate px-6 pt-14 lg:px-8">
-        <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
-          <div
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-orange-200 to-orange-600 opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-            style={{
-              clipPath:
-                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-            }}
-          />
-        </div>
-
-        <div className="mx-auto max-w-4xl py-24 sm:py-32 lg:py-40">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <div className="mb-8 flex justify-center">
-              <div className="relative rounded-full px-4 py-1.5 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                Introductory pricing for first customers.{" "}
-                <Link href="/pricing" className="font-semibold text-orange-600">
-                  <span className="absolute inset-0" aria-hidden="true" />
-                  See pricing <span aria-hidden="true">&rarr;</span>
+      {/* Hero Section with Layered Background */}
+      <LayeredBackground
+        variant="hero"
+        imageUrl="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070"
+        imagePosition="center"
+        className="min-h-screen"
+      >
+        <section className="relative px-6 pt-20 lg:px-8">
+          <div className="mx-auto max-w-4xl py-24 sm:py-32 lg:py-40">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center"
+            >
+              <div className="mb-8 flex justify-center">
+                <div className="relative rounded-full px-4 py-1.5 text-sm leading-6 text-white/70 ring-1 ring-white/20 hover:ring-white/40 transition-all backdrop-blur-sm bg-white/5">
+                  <Sparkles className="inline-block w-4 h-4 mr-2 text-orange-400" />
+                  Introductory pricing for first customers.{" "}
+                  <Link href="/pricing" className="font-semibold text-orange-400 hover:text-orange-300">
+                    See pricing <span aria-hidden="true">&rarr;</span>
+                  </Link>
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
+                Corporate Wellness That{" "}
+                <span className="text-gradient">Actually Works</span>
+              </h1>
+              <p className="mt-6 text-lg leading-8 text-white/70 max-w-2xl mx-auto">
+                Transform your workforce with AI-powered fitness coaching, personalized
+                nutrition plans, and measurable health outcomes—at{" "}
+                <span className="font-semibold text-orange-400">40-70% below</span> industry
+                rates.
+              </p>
+              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link href="/contact" className="btn-premium flex items-center gap-2 group">
+                  Get Started
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link href="/roi-calculator" className="btn-secondary">
+                  Calculate Your ROI
                 </Link>
               </div>
-            </div>
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Corporate Wellness That{" "}
-              <span className="text-orange-600">Actually Works</span>
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Transform your workforce with AI-powered fitness coaching, personalized
-              nutrition plans, and measurable health outcomes—at{" "}
-              <span className="font-semibold text-orange-600">40-70% below</span> industry
-              rates.
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Button size="lg">
-                <Link href="/contact" className="flex items-center">
-                  Get Started <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg">
-                <Link href="/roi-calculator">Calculate Your ROI</Link>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            </motion.div>
+          </div>
+        </section>
+      </LayeredBackground>
 
       {/* Stats Section */}
-      <section className="bg-orange-600 py-16">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="relative bg-gradient-to-r from-orange-600 to-amber-600 py-16">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.05%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-30" />
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {stats.map((stat, index) => (
               <motion.div
@@ -152,9 +143,9 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="text-4xl font-bold text-white">{stat.value}</div>
+                <div className="text-4xl md:text-5xl font-bold text-white">{stat.value}</div>
                 <div className="mt-1 text-sm font-medium text-orange-100">{stat.label}</div>
-                <div className="text-xs text-orange-200">{stat.description}</div>
+                <div className="text-xs text-orange-200/70">{stat.description}</div>
               </motion.div>
             ))}
           </div>
@@ -162,100 +153,90 @@ export default function HomePage() {
       </section>
 
       {/* Pricing Comparison Section */}
-      <section className="py-24 bg-gray-50">
+      <SectionBackground variant="default" className="py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Compare and Save
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mx-auto max-w-2xl text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Compare and <span className="text-gradient">Save</span>
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
-              See how BodyF1RST stacks up against industry leaders
+            <p className="mt-4 text-lg text-white/60">
+              See how BodyF1RST stacks up against industry leaders—then see what they&apos;re missing
             </p>
-          </div>
+          </motion.div>
 
-          <div className="mt-16 overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="py-4 px-6 text-left text-sm font-semibold text-gray-900">Provider</th>
-                  <th className="py-4 px-6 text-center text-sm font-semibold text-gray-900">Basic<br/><span className="font-normal text-gray-500">/employee/year</span></th>
-                  <th className="py-4 px-6 text-center text-sm font-semibold text-gray-900">Standard<br/><span className="font-normal text-gray-500">/employee/year</span></th>
-                  <th className="py-4 px-6 text-center text-sm font-semibold text-gray-900">Premium<br/><span className="font-normal text-gray-500">/employee/year</span></th>
-                </tr>
-              </thead>
-              <tbody>
-                {competitors.map((competitor) => (
-                  <tr key={competitor.name} className="border-b border-gray-100">
-                    <td className="py-4 px-6 text-sm text-gray-700">{competitor.name}</td>
-                    <td className="py-4 px-6 text-center text-sm text-gray-500">{competitor.basic}</td>
-                    <td className="py-4 px-6 text-center text-sm text-gray-500">{competitor.standard}</td>
-                    <td className="py-4 px-6 text-center text-sm text-gray-500">{competitor.premium}</td>
-                  </tr>
-                ))}
-                <tr className="bg-orange-50 border-2 border-orange-200">
-                  <td className="py-4 px-6 text-sm font-bold text-orange-700 flex items-center gap-2">
-                    <CheckCircle className="h-5 w-5 text-orange-600" />
-                    BodyF1RST
-                  </td>
-                  <td className="py-4 px-6 text-center text-lg font-bold text-orange-600">$120<br/><span className="text-xs font-normal">($10/mo)</span></td>
-                  <td className="py-4 px-6 text-center text-lg font-bold text-orange-600">$180<br/><span className="text-xs font-normal">($15/mo)</span></td>
-                  <td className="py-4 px-6 text-center text-lg font-bold text-orange-600">$240<br/><span className="text-xs font-normal">($20/mo)</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <CompetitorComparison />
 
-          <div className="mt-8 text-center">
-            <p className="text-sm text-gray-500">
+          <div className="mt-12 text-center">
+            <p className="text-sm text-white/40">
               * Introductory pricing for first customers. Volume discounts available for 500+ employees.
             </p>
           </div>
         </div>
-      </section>
+      </SectionBackground>
 
       {/* Features Section */}
-      <section className="py-24">
+      <SectionBackground variant="darker" className="py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Everything You Need for Employee Wellness
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mx-auto max-w-2xl text-center"
+          >
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Everything You Need for <span className="text-gradient">Employee Wellness</span>
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-white/60">
               A complete platform designed for modern workplaces
             </p>
-          </div>
+          </motion.div>
 
-          <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative rounded-2xl border border-gray-200 p-8 hover:border-orange-200 hover:shadow-lg transition-all"
+                className="glass-card p-8 hover:border-orange-500/30 transition-all group"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-100">
-                  <feature.icon className="h-6 w-6 text-orange-600" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 shadow-lg shadow-orange-500/20 group-hover:shadow-orange-500/40 transition-shadow">
+                  <feature.icon className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="mt-6 text-lg font-semibold text-gray-900">{feature.title}</h3>
-                <p className="mt-2 text-sm text-gray-600">{feature.description}</p>
+                <h3 className="mt-6 text-lg font-semibold text-white">{feature.title}</h3>
+                <p className="mt-2 text-sm text-white/60">{feature.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </SectionBackground>
 
       {/* Industries Section */}
-      <section className="py-24 bg-gray-900">
+      <LayeredBackground
+        variant="section"
+        imageUrl="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070"
+        imagePosition="right"
+        className="py-24"
+      >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mx-auto max-w-2xl text-center"
+          >
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Tailored for Your Industry
+              Tailored for <span className="text-gradient">Your Industry</span>
             </h2>
-            <p className="mt-4 text-lg text-gray-300">
+            <p className="mt-4 text-lg text-white/60">
               Wellness programs customized for your workforce&apos;s unique needs
             </p>
-          </div>
+          </motion.div>
 
           <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
             {industries.map((industry, index) => (
@@ -264,18 +245,18 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="rounded-2xl bg-gray-800 p-8"
+                className="glass-card p-8"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-600">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 shadow-lg shadow-orange-500/20">
                   <industry.icon className="h-6 w-6 text-white" />
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-white">{industry.name}</h3>
-                <p className="mt-2 text-sm text-gray-400">{industry.description}</p>
+                <p className="mt-2 text-sm text-white/60">{industry.description}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {industry.companies.map((company) => (
                     <span
                       key={company}
-                      className="inline-flex items-center rounded-full bg-gray-700 px-3 py-1 text-xs text-gray-300"
+                      className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs text-white/70 border border-white/10"
                     >
                       {company}
                     </span>
@@ -286,33 +267,52 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 text-center">
-            <Button variant="outline" size="lg" className="bg-transparent border-white text-white hover:bg-white hover:text-gray-900">
-              <Link href="/industries">View All Industries</Link>
-            </Button>
+            <Link href="/industries" className="btn-secondary inline-flex items-center gap-2 group">
+              View All Industries
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
         </div>
-      </section>
+      </LayeredBackground>
 
       {/* CTA Section */}
-      <section className="py-24 bg-orange-600">
-        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Ready to Transform Your Workplace?
-          </h2>
-          <p className="mt-4 text-lg text-orange-100">
-            Join forward-thinking companies investing in their greatest asset—their people.
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100">
-              <Link href="/contact">Schedule a Demo</Link>
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-orange-700">
-              <Link href="/pricing">View Pricing</Link>
-            </Button>
-          </div>
-          <p className="mt-6 text-sm text-orange-200">
-            No commitment required. Get a personalized proposal in 24 hours.
-          </p>
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-amber-600" />
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.05%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-30" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-white/10 rounded-full blur-[100px]" />
+
+        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8 relative">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+              Ready to Transform Your Workplace?
+            </h2>
+            <p className="mt-4 text-lg text-orange-100">
+              Join forward-thinking companies investing in their greatest asset—their people.
+            </p>
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/contact"
+                className="px-8 py-4 rounded-xl bg-white text-orange-600 font-bold text-lg shadow-lg hover:shadow-xl hover:bg-gray-100 transition-all hover:-translate-y-0.5 flex items-center gap-2 group"
+              >
+                Schedule a Demo
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link
+                href="/pricing"
+                className="px-8 py-4 rounded-xl border-2 border-white text-white font-bold text-lg hover:bg-white/10 transition-all"
+              >
+                View Pricing
+              </Link>
+            </div>
+            <p className="mt-6 text-sm text-orange-200">
+              No commitment required. Get a personalized proposal in 24 hours.
+            </p>
+          </motion.div>
         </div>
       </section>
     </div>

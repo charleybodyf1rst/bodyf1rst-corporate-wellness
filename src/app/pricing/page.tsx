@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import { Check, X, HelpCircle } from "lucide-react";
+import { Check, X, HelpCircle, ArrowRight } from "lucide-react";
+import { SectionBackground } from "@/components/layered-background";
+import { CompetitorComparison } from "@/components/competitor-comparison";
 
 const tiers = [
   {
@@ -83,8 +83,8 @@ const volumeDiscounts = [
 
 const faqs = [
   {
-    question: "What's included in the introductory pricing?",
-    answer: "As one of our first corporate customers, you'll receive our special introductory rates of $10-$20/employee/month—40-70% below typical industry rates. This pricing is locked in for the duration of your contract.",
+    question: "What is included in the introductory pricing?",
+    answer: "As one of our first corporate customers, you will receive our special introductory rates of $10-$20/employee/month - 40-70% below typical industry rates. This pricing is locked in for the duration of your contract.",
   },
   {
     question: "Is there a minimum contract length?",
@@ -92,7 +92,7 @@ const faqs = [
   },
   {
     question: "How quickly can we get started?",
-    answer: "Most companies are fully deployed within 2 weeks. This includes technical setup, employee onboarding, and launch coordination. We'll assign a dedicated success manager to guide you through the process.",
+    answer: "Most companies are fully deployed within 2 weeks. This includes technical setup, employee onboarding, and launch coordination. We will assign a dedicated success manager to guide you through the process.",
   },
   {
     question: "Do you offer a pilot program?",
@@ -104,7 +104,7 @@ const faqs = [
   },
   {
     question: "Can we customize the program for our industry?",
-    answer: "Absolutely! We tailor content libraries, challenges, and coaching for your specific industry—whether that's desk-friendly workouts for office workers, injury prevention for construction, or shift-based scheduling for manufacturing.",
+    answer: "Absolutely! We tailor content libraries, challenges, and coaching for your specific industry - whether that is desk-friendly workouts for office workers, injury prevention for construction, or shift-based scheduling for manufacturing.",
   },
 ];
 
@@ -112,222 +112,196 @@ export default function PricingPage() {
   const [isAnnual, setIsAnnual] = useState(true);
 
   return (
-    <div className="py-24">
-      {/* Header */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Simple, Transparent Pricing
-          </h1>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Introductory rates for our first corporate customers—40-70% below industry average.
-            No hidden fees, no surprises.
-          </p>
-        </div>
+    <div className="min-h-screen">
+      <SectionBackground variant="default" className="py-24 pt-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+              Simple, <span className="text-gradient">Transparent</span> Pricing
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-white/60">
+              Introductory rates for our first corporate customers - 40-70% below industry average.
+              No hidden fees, no surprises.
+            </p>
+          </div>
 
-        {/* Toggle */}
-        <div className="mt-12 flex items-center justify-center gap-4">
-          <span className={`text-sm font-medium ${!isAnnual ? "text-gray-900" : "text-gray-500"}`}>
-            Monthly
-          </span>
-          <Switch
-            checked={isAnnual}
-            onCheckedChange={setIsAnnual}
-            aria-label="Toggle annual billing"
-          />
-          <span className={`text-sm font-medium ${isAnnual ? "text-gray-900" : "text-gray-500"}`}>
-            Annual
-            <span className="ml-1.5 inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
-              Save 20%
+          <div className="mt-12 flex items-center justify-center gap-4">
+            <span className={`text-sm font-medium ${!isAnnual ? "text-white" : "text-white/50"}`}>
+              Monthly
             </span>
-          </span>
-        </div>
-      </div>
-
-      {/* Pricing Cards */}
-      <div className="mx-auto mt-16 max-w-7xl px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {tiers.map((tier, index) => (
-            <motion.div
-              key={tier.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative rounded-2xl p-8 ${
-                tier.popular
-                  ? "bg-orange-600 text-white ring-2 ring-orange-600"
-                  : "bg-white ring-1 ring-gray-200"
-              }`}
+            <button
+              onClick={() => setIsAnnual(!isAnnual)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${isAnnual ? "bg-orange-500" : "bg-white/20"}`}
             >
-              {tier.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="inline-flex items-center rounded-full bg-orange-100 px-4 py-1 text-sm font-semibold text-orange-700">
-                    Most Popular
-                  </span>
-                </div>
-              )}
-
-              <h3 className={`text-lg font-semibold ${tier.popular ? "text-white" : "text-gray-900"}`}>
-                {tier.name}
-              </h3>
-              <p className={`mt-2 text-sm ${tier.popular ? "text-orange-100" : "text-gray-500"}`}>
-                {tier.description}
-              </p>
-
-              <div className="mt-6">
-                <div className="flex items-baseline gap-1">
-                  <span className={`text-4xl font-bold ${tier.popular ? "text-white" : "text-gray-900"}`}>
-                    ${isAnnual ? Math.round(tier.annualPrice / 12) : tier.monthlyPrice}
-                  </span>
-                  <span className={`text-sm ${tier.popular ? "text-orange-200" : "text-gray-500"}`}>
-                    /employee/month
-                  </span>
-                </div>
-                {isAnnual && (
-                  <p className={`mt-1 text-sm ${tier.popular ? "text-orange-200" : "text-gray-500"}`}>
-                    ${tier.annualPrice}/employee billed annually
-                  </p>
-                )}
-              </div>
-
-              <ul className="mt-8 space-y-3">
-                {tier.features.map((feature) => (
-                  <li key={feature.name} className="flex items-center gap-3">
-                    {feature.included ? (
-                      <Check className={`h-5 w-5 ${tier.popular ? "text-orange-200" : "text-orange-600"}`} />
-                    ) : (
-                      <X className={`h-5 w-5 ${tier.popular ? "text-orange-300/50" : "text-gray-300"}`} />
-                    )}
-                    <span
-                      className={`text-sm ${
-                        feature.included
-                          ? tier.popular
-                            ? "text-white"
-                            : "text-gray-700"
-                          : tier.popular
-                          ? "text-orange-300/70"
-                          : "text-gray-400"
-                      }`}
-                    >
-                      {feature.name}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <Button
-                className={`mt-8 w-full ${
-                  tier.popular
-                    ? "bg-white text-orange-600 hover:bg-gray-100"
-                    : "bg-orange-600 text-white hover:bg-orange-700"
-                }`}
-                size="lg"
-              >
-                <Link href="/contact">{tier.cta}</Link>
-              </Button>
-            </motion.div>
-          ))}
+              <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isAnnual ? "translate-x-6" : "translate-x-1"}`} />
+            </button>
+            <span className={`text-sm font-medium ${isAnnual ? "text-white" : "text-white/50"}`}>
+              Annual
+              <span className="ml-1.5 inline-flex items-center rounded-full bg-green-500/20 px-2 py-0.5 text-xs font-medium text-green-400">
+                Save 20%
+              </span>
+            </span>
+          </div>
         </div>
-      </div>
+      </SectionBackground>
 
-      {/* Volume Discounts */}
-      <div className="mx-auto mt-24 max-w-4xl px-6 lg:px-8">
-        <div className="rounded-2xl bg-gray-50 p-8">
-          <h2 className="text-center text-2xl font-bold text-gray-900">Volume Discounts</h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Larger teams get better rates. Discounts applied automatically.
-          </p>
+      <SectionBackground variant="darker" className="py-16">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            {tiers.map((tier, index) => (
+              <motion.div
+                key={tier.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`relative glass-card p-8 ${tier.popular ? "border-orange-500/50 scale-105" : ""}`}
+              >
+                {tier.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                    <span className="inline-flex items-center rounded-full bg-gradient-to-r from-orange-500 to-amber-600 px-4 py-1 text-sm font-semibold text-white">
+                      Most Popular
+                    </span>
+                  </div>
+                )}
 
-          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-5">
-            {volumeDiscounts.map((tier) => (
-              <div key={tier.employees} className="rounded-lg bg-white p-4 text-center shadow-sm">
-                <div className="text-lg font-bold text-orange-600">{tier.discount}</div>
-                <div className="mt-1 text-xs text-gray-500">{tier.employees} employees</div>
+                <h3 className="text-lg font-semibold text-white">{tier.name}</h3>
+                <p className="mt-2 text-sm text-white/50">{tier.description}</p>
+
+                <div className="mt-6">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-bold text-gradient">
+                      ${isAnnual ? Math.round(tier.annualPrice / 12) : tier.monthlyPrice}
+                    </span>
+                    <span className="text-sm text-white/50">/employee/month</span>
+                  </div>
+                  {isAnnual && (
+                    <p className="mt-1 text-sm text-white/40">
+                      ${tier.annualPrice}/employee billed annually
+                    </p>
+                  )}
+                </div>
+
+                <ul className="mt-8 space-y-3">
+                  {tier.features.map((feature) => (
+                    <li key={feature.name} className="flex items-center gap-3">
+                      {feature.included ? (
+                        <Check className="h-5 w-5 text-orange-500" />
+                      ) : (
+                        <X className="h-5 w-5 text-white/20" />
+                      )}
+                      <span className={`text-sm ${feature.included ? "text-white/80" : "text-white/30"}`}>
+                        {feature.name}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  href="/contact"
+                  className={`mt-8 w-full flex items-center justify-center gap-2 py-3 rounded-lg font-semibold transition-all ${tier.popular ? "btn-premium" : "bg-white/10 text-white hover:bg-white/20"}`}
+                >
+                  {tier.cta}
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </SectionBackground>
+
+      <SectionBackground variant="default" className="py-24">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8">
+          <div className="glass-card p-8">
+            <h2 className="text-center text-2xl font-bold text-white">Volume Discounts</h2>
+            <p className="mt-2 text-center text-sm text-white/60">
+              Larger teams get better rates. Discounts applied automatically.
+            </p>
+
+            <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-5">
+              {volumeDiscounts.map((tier) => (
+                <div key={tier.employees} className="rounded-lg bg-white/5 border border-white/10 p-4 text-center">
+                  <div className="text-lg font-bold text-gradient">{tier.discount}</div>
+                  <div className="mt-1 text-xs text-white/50">{tier.employees} employees</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </SectionBackground>
+
+      <SectionBackground variant="darker" className="py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mx-auto max-w-2xl text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              How We <span className="text-gradient">Compare</span>
+            </h2>
+            <p className="mt-4 text-lg text-white/60">
+              Industry-leading value at a fraction of the cost
+            </p>
+          </motion.div>
+
+          <CompetitorComparison />
+        </div>
+      </SectionBackground>
+
+      <SectionBackground variant="default" className="py-24">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8">
+          <h2 className="text-center text-2xl font-bold text-white mb-12">
+            Frequently Asked <span className="text-gradient">Questions</span>
+          </h2>
+
+          <div className="space-y-4">
+            {faqs.map((faq) => (
+              <div key={faq.question} className="glass-card p-6">
+                <h3 className="flex items-center gap-2 text-base font-semibold text-white">
+                  <HelpCircle className="h-5 w-5 text-orange-500" />
+                  {faq.question}
+                </h3>
+                <p className="mt-2 text-sm text-white/60 pl-7">{faq.answer}</p>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </SectionBackground>
 
-      {/* Industry Comparison */}
-      <div className="mx-auto mt-24 max-w-4xl px-6 lg:px-8">
-        <h2 className="text-center text-2xl font-bold text-gray-900">How We Compare</h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Industry-leading value at a fraction of the cost
-        </p>
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-amber-600" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-white/10 rounded-full blur-[100px]" />
 
-        <div className="mt-8 overflow-hidden rounded-2xl border border-gray-200">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Provider</th>
-                <th className="px-6 py-4 text-center text-sm font-semibold text-gray-900">Standard Tier</th>
-                <th className="px-6 py-4 text-center text-sm font-semibold text-gray-900">vs BodyF1RST</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              <tr>
-                <td className="px-6 py-4 text-sm text-gray-700">Virgin Pulse</td>
-                <td className="px-6 py-4 text-center text-sm text-gray-500">$240/yr</td>
-                <td className="px-6 py-4 text-center text-sm font-semibold text-green-600">Save 25%</td>
-              </tr>
-              <tr>
-                <td className="px-6 py-4 text-sm text-gray-700">Wellable</td>
-                <td className="px-6 py-4 text-center text-sm text-gray-500">$180/yr</td>
-                <td className="px-6 py-4 text-center text-sm font-semibold text-green-600">Same price, more features</td>
-              </tr>
-              <tr>
-                <td className="px-6 py-4 text-sm text-gray-700">Limeade</td>
-                <td className="px-6 py-4 text-center text-sm text-gray-500">$200/yr</td>
-                <td className="px-6 py-4 text-center text-sm font-semibold text-green-600">Save 10%</td>
-              </tr>
-              <tr>
-                <td className="px-6 py-4 text-sm text-gray-700">Industry Average</td>
-                <td className="px-6 py-4 text-center text-sm text-gray-500">$275/yr</td>
-                <td className="px-6 py-4 text-center text-sm font-semibold text-green-600">Save 35%</td>
-              </tr>
-              <tr className="bg-orange-50">
-                <td className="px-6 py-4 text-sm font-bold text-orange-700">BodyF1RST Standard</td>
-                <td className="px-6 py-4 text-center text-lg font-bold text-orange-600">$180/yr</td>
-                <td className="px-6 py-4 text-center text-sm font-semibold text-orange-600">Best Value</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* FAQs */}
-      <div className="mx-auto mt-24 max-w-4xl px-6 lg:px-8">
-        <h2 className="text-center text-2xl font-bold text-gray-900">Frequently Asked Questions</h2>
-
-        <div className="mt-8 divide-y divide-gray-200">
-          {faqs.map((faq) => (
-            <div key={faq.question} className="py-6">
-              <h3 className="flex items-center gap-2 text-base font-semibold text-gray-900">
-                <HelpCircle className="h-5 w-5 text-orange-600" />
-                {faq.question}
-              </h3>
-              <p className="mt-2 text-sm text-gray-600 pl-7">{faq.answer}</p>
+        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8 relative">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-2xl font-bold text-white sm:text-3xl">Ready to Get Started?</h2>
+            <p className="mt-2 text-orange-100">
+              Get a personalized quote for your organization in 24 hours.
+            </p>
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/contact"
+                className="px-8 py-4 rounded-xl bg-white text-orange-600 font-bold text-lg shadow-lg hover:shadow-xl hover:bg-gray-100 transition-all hover:-translate-y-0.5 flex items-center gap-2 group"
+              >
+                Request a Quote
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link
+                href="/roi-calculator"
+                className="px-8 py-4 rounded-xl border-2 border-white text-white font-bold text-lg hover:bg-white/10 transition-all"
+              >
+                Calculate Your ROI
+              </Link>
             </div>
-          ))}
+          </motion.div>
         </div>
-      </div>
-
-      {/* CTA */}
-      <div className="mx-auto mt-24 max-w-4xl px-6 text-center lg:px-8">
-        <h2 className="text-2xl font-bold text-gray-900">Ready to Get Started?</h2>
-        <p className="mt-2 text-gray-600">
-          Get a personalized quote for your organization in 24 hours.
-        </p>
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button size="lg">
-            <Link href="/contact">Request a Quote</Link>
-          </Button>
-          <Button variant="outline" size="lg">
-            <Link href="/roi-calculator">Calculate Your ROI</Link>
-          </Button>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
